@@ -1,0 +1,93 @@
+reclaim:
+// verify there are 2 transactions
+// in the group
+global GroupSize
+int 2
+==
+bz failed
+
+// verify that smart contract
+// caller is the payment
+// transction receiver
+gtxn 1 Receiver
+gtxn 0 Sender
+==
+
+// Verify that payment
+// transaction is from the escrow
+gtxn 1 Sender
+byte "Escrow"
+app_global_get
+==
+&&
+
+// verify that fund end date has passed
+global LatestTimestamp
+byte "EndDate"
+app_global_get
+>
+&&
+
+// verify the fund goal was
+// not met
+byte "Total"
+app_global_get
+byte "Goal"
+app_global_get
+<
+&&
+
+// because the escrow
+// has to pay the fee
+// the amount of the 
+// payment transaction
+// plus the fee should
+// be less than or equal to
+// the amount originally 
+// given
+gtxn 1 Amount
+gtxn 1 Fee
++
+int 0
+byte "MyAmountGiven"
+app_local_get
+<=
+&&
+bz failed
+
+//check the escrow account total
+//--app-account for the escrow
+// needs to pass the address
+// of the escrow
+// check that this is the
+// last recoverd donation
+// if it is the closeremainderto
+// should be set
+gtxn 1 Fee
+gtxn 1 Amount
++
+// the int 1 is the ref to escrow
+int 1
+balance
+==
+gtxn 1 CloseRemainderTo 
+global ZeroAddress
+==
+||
+bz failed
+
+// decrement the given amount
+// of the sender
+int 0
+byte "MyAmountGiven"
+app_local_get
+gtxn 1 Amount
+-
+gtxn 1 Fee
+-
+store 5
+int 0
+byte "MyAmountGiven"
+load 5
+app_local_put
+b finished

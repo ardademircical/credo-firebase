@@ -1,0 +1,29 @@
+// check if this is update ---
+int UpdateApplication
+txn OnCompletion
+==
+bz not_update
+
+// verify that the creator is
+// making the call
+byte "Creator"
+app_global_get
+txn Sender
+==
+
+// the call should pass the escrow 
+// address
+txn NumAppArgs
+int 1
+==
+&&
+bz failed
+
+// store the address in global state
+// this parameter should be addr:
+byte "Escrow"
+txna ApplicationArgs 0
+app_global_put
+int 1
+return
+not_update:

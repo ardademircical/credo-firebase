@@ -1,0 +1,51 @@
+claim:
+// verify there are 2 transactions
+// in the group
+global GroupSize
+int 2
+==
+bz failed
+
+// verify that the receiver 
+// of the payment transaction
+// is the address stored 
+// when the fund was created
+gtxn 1 Receiver
+byte "Receiver"
+app_global_get
+==
+
+// verify the sender
+// of the payment transaction
+// is the escrow account
+gtxn 1 Sender
+byte "Escrow"
+app_global_get
+==
+&&
+
+// verify that the CloseRemainderTo
+// attribute is set to the receiver
+gtxn 1 CloseRemainderTo 
+byte "Receiver"
+app_global_get
+==
+&&
+
+// verify that the fund end date 
+// has passed
+global LatestTimestamp
+byte "EndDate"
+app_global_get
+>
+&&
+bz failed
+
+// verify that the goal was reached
+byte "Total"
+app_global_get
+byte "Goal"
+app_global_get
+>=
+bz failed
+b finished

@@ -1,0 +1,73 @@
+// check if this is deletion transaction
+int DeleteApplication
+txn OnCompletion
+==
+bz not_deletion
+
+// To delete the app
+// The creator must empty the escrow
+// to the fund receiver if the escrow has funds
+// only the creator
+// can delete the app
+byte "Creator"
+app_global_get
+txn Sender
+==
+
+// check that we are past fund close date
+global LatestTimestamp
+byte "FundCloseDate"
+app_global_get
+>=
+&&
+bz failed
+
+// if escrow balance is zero
+// let the app be deleted
+// escrow account must be passed
+// into the call as an argument
+int 0
+int 1
+balance
+==
+
+// if the balance is 0 allow the delete
+bnz finished
+// if the escrow is not empty then 
+// there must be need two transactions
+// in a group
+global GroupSize
+int 2
+==
+
+// second tx is an payment
+gtxn 1 TypeEnum
+int 1
+==
+&&
+
+// the second payment transaction should be
+// a close out transaction to receiver
+byte "Receiver"
+app_global_get
+gtxn 1 CloseRemainderTo
+==
+&&
+
+// the amount of the payment transaction 
+// should be 0
+gtxn 1 Amount
+int 0
+==
+&&
+
+// the sender of the payment transaction
+// should be the escrow account
+byte "Escrow"
+app_global_get
+gtxn 1 Sender
+==
+&&
+bz failed
+int 1
+return

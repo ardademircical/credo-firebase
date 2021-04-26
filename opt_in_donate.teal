@@ -1,0 +1,115 @@
+// check if no params are
+// passed in, which should
+// only happen when someone just
+// wants to optin
+// note the code is written
+// to allow opting in and donating with
+// one call
+int 0
+txn NumAppArgs
+==
+bz check_parms 
+
+// Verify someone is 
+// not just opting in
+int OptIn
+txn OnCompletion
+==
+bz failed
+int 1
+return
+
+check_parms:
+// donate
+txna ApplicationArgs 0
+byte "donate"
+==
+bnz donate
+
+// reclaim
+txna ApplicationArgs 0
+byte "reclaim" 
+==
+bnz reclaim
+
+// claim
+txna ApplicationArgs 0
+byte "claim" 
+==
+bnz claim
+b failed
+
+donate:
+// check dates to verify
+// in valid range
+global LatestTimestamp
+byte "StartDate"
+app_global_get
+>=
+
+global LatestTimestamp
+byte "EndDate"
+app_global_get
+<=
+&&
+bz failed
+
+// check if grouped with
+// two transactions
+global GroupSize
+int 2
+==
+
+// second tx is an payment
+gtxn 1 TypeEnum
+int 1
+==
+&&
+bz failed
+
+// verify escrow is receiving 
+// second payment tx
+byte "Escrow"
+app_global_get
+gtxn 1 Receiver
+==
+bz failed
+
+// increment the total 
+// funds raised so far
+byte "Total"
+app_global_get
+gtxn 1 Amount
++
+store 1
+byte "Total"
+load 1
+app_global_put
+
+// increment or set giving amount
+// for the account that is donating
+int 0 //sender
+txn ApplicationID
+byte "MyAmountGiven"
+app_local_get_ex
+
+// check if a new giver
+// or existing giver
+// and store the value
+// in the givers local storage
+bz new_giver
+gtxn 1 Amount
++
+store 3
+int 0 //sender
+byte "MyAmountGiven"
+load 3
+app_local_put
+b finished
+
+new_giver:
+int 0 // sender
+byte "MyAmountGiven"
+gtxn 1 Amount
+app_local_put
+b finished

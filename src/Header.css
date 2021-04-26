@@ -1,0 +1,78 @@
+.header {
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    /* background-color: rgb(112, 14, 151); */
+    background-color: #8e20e8;
+    /* background-color: black; */
+    z-index: 100;
+    top: 0;
+    box-shadow: 0px 5px 8px -9px rgba(0, 0,0, .75);
+}
+
+
+.header_left {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.header_input {
+    display: flex;
+    align-items: center;
+    background-color: #eff2ef;
+    padding: 10px;
+
+    margin-left: 20px;
+    border-radius: 33px;
+
+}
+
+.header_input > input {
+    border: none;
+    background-color: transparent;
+    outline-width: 0;
+}
+
+.header_middle {
+    display: flex;
+    flex : 1;
+    margin-left: 330px;
+}
+
+.header_left > img {
+    padding-top: 15px;
+    padding-left: 20px;
+    height: 25px;
+
+}
+
+.header_option > .MuiIconButton-root {
+    color: whitesmoke;
+}
+
+.header_option:hover > .MuiIconButton-root {
+    color: rgb(59, 223, 136);
+}
+
+.header_option {
+    display: flex;
+    align-items: center;
+    padding: 0 30px;
+    cursor: pointer;
+}
+
+.header_info {
+    display: flex;
+    align-items: center;
+}
+
+.header_right {
+    display: flex;
+}
+
+.header_info > h4{
+    margin-left: 10px;
+    color: whitesmoke;
+}
+

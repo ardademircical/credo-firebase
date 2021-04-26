@@ -1,0 +1,29 @@
+.campaignSidebar {
+    display: flexbox;
+    width: 70%;
+    margin-top: 40px;
+}
+
+.Title > h1 {
+    margin-left: 60px;
+    margin-top: 2px;
+}
+
+.createCampaign > button {
+    margin-top: 20px;
+    margin-left: 60px;
+    width: 270px;
+    border-radius: 33px;
+    background-color: #8e20e8;
+    color: #eff2f5;
+    font-weight: 800;
+}
+
+.createCampaign > button:hover {
+    background-color: #ad70df;
+    color: white;
+}
+
+.existingCampaigns {
+    margin-top: 10px;
+}

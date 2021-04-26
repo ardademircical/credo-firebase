@@ -1,0 +1,69 @@
+.campaign {
+    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+    margin-top: 50px;
+    margin-left: 400px;
+    padding: 50px 30px 30px;
+    background-color: white;
+    border-radius: 33px;
+    box-shadow: 0px 0px 7px -7px rgba(0, 0, 0, 0.75);
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+}
+
+.campaignFormLeft > .MuiSvgIcon-root {
+    color: #8e20e8;
+    margin: 0px 0px 40px 0px;
+}
+
+.campaignFormRight > form > input {
+    display: flex;
+    outline-width: 0;
+    border: none;
+    padding: 20px 20px;
+    margin: 0px 0px 40px 40px;
+    width: 300px;
+    border-radius: 33px;
+    background-color: #eff2f5;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    /* align-items: center;
+    vertical-align: middle; */
+}
+
+.campaignFormRight > button {
+    width: 350px;
+    border-radius: 999px;
+    background-color: #8e20e8;
+    color: #eff2f5;
+    font-weight: 800;
+    margin-top: 20px;
+    margin-left: 40px;
+}
+
+.campaignFormRight > button:hover {
+    background-color: #ad70df;
+    color: white
+}
+
+.campaignFormLeft > h3 {
+    margin-left: 30px;
+}
+
+.campaignFormLeft > p {
+    margin-left: 30px;
+}
+
+/* .campaignFormRight > form > textarea {
+    background-color: #eff2f5;
+    border-radius: 33px;
+    border: none;
+    resize: none;
+    width: 337px;
+    height: 100px;
+    margin: 0px 0px 40px 40px;
+    font-family: sans-serif;
+} */

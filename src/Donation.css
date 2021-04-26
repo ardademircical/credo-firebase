@@ -1,0 +1,40 @@
+.donation {
+    width: 40%;
+    margin-top: 35px;
+    margin-left: 480px;
+    /* padding-top: 10px; */
+    padding-right: 15px;
+    border-radius: 33px;
+    background-color: white;
+    box-shadow: 0px 5px 7px -7px rgba(0,0,0, .75);
+    align-items: center;
+}
+
+.donationTop {
+    display: flex;
+    position: relative;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #eff2f5;
+}
+
+.donationTopInfo > h3 {
+    font-size: medium;
+    padding-left: 10px;
+}
+
+.donationTopInfo > p {
+    font-size: small;
+    color: gray;
+    padding-left: 10px;
+}
+
+.donationBottom > h3 {
+    padding: 15px
+}
+
+.donationBottom > p {
+    padding: 15px;
+    font-size: medium;
+    color: gray;
+} 
